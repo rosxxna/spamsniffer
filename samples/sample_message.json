@@ -1,0 +1,14 @@
+[
+  {
+    "from": "recruiter@company.com",
+    "subject": "Interview confirmation",
+    "body": "Your interview has been confirmed for Tuesday at 10 AM. Please bring a valid ID at arrival.",
+    "headers": "From: recruiter@company.com\nReply-To: recruiter@company.com\nAuthentication-Results: spf=pass dkim=pass dmarc=pass"
+  },
+  {
+    "from": "bonus@prize-vault.net",
+    "subject": "Claim your prize now",
+    "body": "Winner notice. Click the secure link and verify your account details to release your cash reward.",
+    "headers": "From: bonus@prize-vault.net\nReply-To: claims@fastbonus-now.net\nReceived-SPF: fail\nAuthentication-Results: dkim=fail dmarc=fail"
+  }
+]
