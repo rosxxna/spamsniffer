@@ -1,0 +1,3 @@
+from,subject,body,headers
+alerts@payments-check.net,Verify account now,"Urgent action required. Confirm your payment credentials now to avoid suspension.","From: alerts@payments-check.net; Reply-To: claims@fastbonus-now.net; Received-SPF: fail"
+manager@company.com,Weekly team update,"Please review the attached status notes before our planning meeting tomorrow.","From: manager@company.com; Reply-To: manager@company.com; Authentication-Results: spf=pass dkim=pass dmarc=pass"
