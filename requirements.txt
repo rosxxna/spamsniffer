@@ -1,0 +1,1 @@
+# SPAMSNIFFER uses only Python standard library modules.
