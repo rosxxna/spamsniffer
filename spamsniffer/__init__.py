@@ -1,0 +1,1 @@
+"""SPAMSNIFFER package."""
