@@ -1,0 +1,66 @@
+[
+  {
+    "label": "spam",
+    "text": "Congratulations winner claim your free prize now click the secure link and verify your bank account for a massive cash reward."
+  },
+  {
+    "label": "spam",
+    "text": "Urgent action required your password will expire today confirm your mailbox immediately to avoid account suspension."
+  },
+  {
+    "label": "spam",
+    "text": "Limited time offer earn bitcoin from home no experience needed instant payout and bonus on signup."
+  },
+  {
+    "label": "spam",
+    "text": "You have been selected for an exclusive refund submit your card information now to release payment."
+  },
+  {
+    "label": "spam",
+    "text": "Final notice unpaid invoice click here to download the document and update your payment credentials."
+  },
+  {
+    "label": "spam",
+    "text": "Dear user we detected unusual login activity verify your identity through the attached form right away."
+  },
+  {
+    "label": "spam",
+    "text": "Act now secret investment club doubles your money every week zero risk guaranteed profit."
+  },
+  {
+    "label": "spam",
+    "text": "Your shipment is on hold pay customs fees with this link to continue delivery."
+  },
+  {
+    "label": "legit",
+    "text": "Hi team attached is the weekly project status report. Please review the milestone updates before tomorrow's meeting."
+  },
+  {
+    "label": "legit",
+    "text": "Thanks for your purchase. Your invoice and receipt are attached. Contact support if you need anything else."
+  },
+  {
+    "label": "legit",
+    "text": "Can we move the client call to 3 PM Dubai time? I updated the calendar invite."
+  },
+  {
+    "label": "legit",
+    "text": "Please find the onboarding documents and schedule for your first week with the engineering team."
+  },
+  {
+    "label": "legit",
+    "text": "Reminder that payroll closes on Friday. Submit your approved timesheet in the HR portal."
+  },
+  {
+    "label": "legit",
+    "text": "We finished the SQL migration in staging and the dashboards look correct after validation."
+  },
+  {
+    "label": "legit",
+    "text": "Here is the draft contract for review. Legal comments are inline and the next version is due Monday."
+  },
+  {
+    "label": "legit",
+    "text": "Your interview has been confirmed. The recruiter will meet you in the lobby at 10 AM."
+  }
+]
