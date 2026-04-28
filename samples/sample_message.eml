@@ -1,0 +1,13 @@
+From: "Security Center" <alerts@bank-safe-check.com>
+Reply-To: claims@fastbonus-now.net
+Return-Path: <alerts@bank-safe-check.com>
+Received-SPF: fail
+Authentication-Results: dkim=fail dmarc=fail
+Subject: Urgent verification needed
+Message-ID: <sample-spam-001@bank-safe-check.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Dear user,
+
+We detected unusual login activity. Click the secure link and verify your password immediately to avoid suspension.
