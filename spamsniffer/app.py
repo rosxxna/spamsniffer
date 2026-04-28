@@ -15,17 +15,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "spamsniffer" / "data"
 DB_PATH = BASE_DIR / "spamsniffer.db"
 
-BG = "#0b0b0d"
-PANEL = "#141418"
-SURFACE = "#21171a"
-TEXT = "#f4f4f5"
-MUTED = "#b8aeb1"
-ACCENT = "#8f1d2c"
-ACCENT_SOFT = "#34161c"
-INPUT_BG = "#101014"
-SUCCESS = "#9c2436"
-WARNING = "#c84a5a"
-DANGER = "#e05263"
+BG = "#f3f5f7"
+PANEL = "#ffffff"
+SURFACE = "#e7ebef"
+TEXT = "#1f2933"
+MUTED = "#5b6773"
+ACCENT = "#2f5d7e"
+INPUT_BG = "#fbfcfd"
 
 
 class SpamSnifferApp:
@@ -77,8 +73,8 @@ class SpamSnifferApp:
         )
         self.style.map(
             "Primary.TButton",
-            background=[("active", "#a42234")],
-            foreground=[("disabled", "#c3b7ba")],
+            background=[("active", "#3d6f92")],
+            foreground=[("disabled", "#7b8794")],
         )
         self.style.configure(
             "Secondary.TButton",
@@ -89,8 +85,8 @@ class SpamSnifferApp:
         )
         self.style.map(
             "Secondary.TButton",
-            background=[("active", "#2b1b1f")],
-            foreground=[("active", "#ffffff")],
+            background=[("active", "#d9e0e7")],
+            foreground=[("active", TEXT)],
         )
         self.style.configure(
             "App.TNotebook",
@@ -107,8 +103,8 @@ class SpamSnifferApp:
         )
         self.style.map(
             "App.TNotebook.Tab",
-            background=[("selected", PANEL), ("active", "#2b1b1f")],
-            foreground=[("selected", "#ffffff"), ("active", "#ffffff")],
+            background=[("selected", PANEL), ("active", "#dfe6ed")],
+            foreground=[("selected", TEXT), ("active", TEXT)],
         )
         self.style.configure(
             "App.Treeview",
@@ -118,13 +114,7 @@ class SpamSnifferApp:
             background=PANEL,
             foreground=TEXT,
         )
-        self.style.map("App.Treeview", background=[("selected", ACCENT)], foreground=[("selected", "#ffffff")])
-        self.style.configure(
-            "App.Treeview.Heading",
-            font=("Segoe UI", 9, "bold"),
-            background=SURFACE,
-            foreground="#ffffff",
-        )
+        self.style.configure("App.Treeview.Heading", font=("Segoe UI", 9, "bold"))
 
     def _build_ui(self) -> None:
         wrapper = ttk.Frame(self.root, padding=16, style="App.TFrame")
@@ -136,7 +126,7 @@ class SpamSnifferApp:
         ttk.Label(header, text="SPAMSNIFFER", style="Title.TLabel").pack(anchor="w")
         ttk.Label(
             header,
-            text="Spam detection for pasted text, imported files, mailbox scans, and raw email headers.",
+            text="Spam detection for pasted text, files, mailbox scans, and email headers.",
             style="Subtitle.TLabel",
         ).pack(anchor="w", pady=(4, 0))
 
@@ -176,26 +166,31 @@ class SpamSnifferApp:
         right = ttk.Frame(self.text_tab, padding=16, style="Panel.TFrame")
         right.grid(row=0, column=1, sticky="nsew")
 
-        ttk.Label(left, text="Paste Email Text", style="SectionTitle.TLabel").pack(anchor="w")
-        ttk.Label(left, text="Add the subject and message body to check whether it looks legitimate.", style="Body.TLabel").pack(anchor="w", pady=(4, 14))
+        left.columnconfigure(0, weight=1)
+        left.rowconfigure(5, weight=1)
+        right.columnconfigure(0, weight=1)
+        right.rowconfigure(2, weight=1)
 
-        ttk.Label(left, text="Subject", style="Field.TLabel").pack(anchor="w")
+        ttk.Label(left, text="Paste Email Text", style="SectionTitle.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(left, text="Add the subject and message body to check whether it looks legitimate.", style="Body.TLabel").grid(row=1, column=0, sticky="w", pady=(4, 14))
+
+        ttk.Label(left, text="Subject", style="Field.TLabel").grid(row=2, column=0, sticky="w")
         subject_entry = ttk.Entry(left, textvariable=self.text_subject_var, width=80)
-        subject_entry.pack(fill="x", pady=(6, 14))
+        subject_entry.grid(row=3, column=0, sticky="ew", pady=(6, 14), ipady=6)
 
-        ttk.Label(left, text="Message Body", style="Field.TLabel").pack(anchor="w")
-        self.text_input = self._build_text_widget(left, height=22)
-        self.text_input.pack(fill="both", expand=True, pady=(6, 0))
+        ttk.Label(left, text="Message Body", style="Field.TLabel").grid(row=4, column=0, sticky="w")
+        self.text_input = self._build_text_widget(left, height=14)
+        self.text_input.grid(row=5, column=0, sticky="nsew", pady=(6, 0))
 
         button_row = ttk.Frame(left, style="Panel.TFrame")
-        button_row.pack(anchor="w", pady=(14, 0))
-        ttk.Button(button_row, text="Analyze Text", command=self.analyze_text, style="Primary.TButton").pack(side="left")
-        ttk.Button(button_row, text="Clear", command=self._clear_text_tab, style="Secondary.TButton").pack(side="left", padx=(10, 0))
+        button_row.grid(row=6, column=0, sticky="w", pady=(14, 0))
+        self._make_button(button_row, "Start Scan", self.analyze_text, primary=True).pack(side="left")
+        self._make_button(button_row, "Clear", self._clear_text_tab, primary=False).pack(side="left", padx=(10, 0))
 
-        ttk.Label(right, text="Analysis Summary", style="SectionTitle.TLabel").pack(anchor="w")
-        ttk.Label(right, text="The result panel keeps the verdict easy to scan.", style="Body.TLabel").pack(anchor="w", pady=(4, 14))
-        self.text_result = self._build_text_widget(right, height=28, readonly=True)
-        self.text_result.pack(fill="both", expand=True)
+        ttk.Label(right, text="Analysis Summary", style="SectionTitle.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(right, text="The result panel keeps the verdict easy to scan.", style="Body.TLabel").grid(row=1, column=0, sticky="w", pady=(4, 14))
+        self.text_result = self._build_text_widget(right, height=18, readonly=True)
+        self.text_result.grid(row=2, column=0, sticky="nsew")
 
     def _build_file_tab(self) -> None:
         top = ttk.Frame(self.file_tab, style="Panel.TFrame")
@@ -206,7 +201,7 @@ class SpamSnifferApp:
             text="Supported formats: .txt, .log, .eml, .csv, .json",
             style="Body.TLabel",
         ).pack(anchor="w", pady=(4, 12))
-        ttk.Button(top, text="Choose File", command=self.scan_file, style="Primary.TButton").pack(anchor="w")
+        self._make_button(top, "Choose File", self.scan_file, primary=True).pack(anchor="w")
 
         self.file_result = self._build_text_widget(self.file_tab, height=30, readonly=True)
         self.file_result.pack(fill="both", expand=True, pady=(16, 0))
@@ -244,7 +239,7 @@ class SpamSnifferApp:
                 entry.configure(show="*")
             entry.pack(fill="x", pady=(6, 0))
 
-        ttk.Button(form_panel, text="Scan Mailbox", command=self.scan_mailbox, style="Primary.TButton").pack(anchor="w", pady=(4, 0))
+        self._make_button(form_panel, "Scan Mailbox", self.scan_mailbox, primary=True).pack(anchor="w", pady=(4, 0))
 
         ttk.Label(result_panel, text="Mailbox Results", style="SectionTitle.TLabel").pack(anchor="w")
         ttk.Label(result_panel, text="Recent messages and likely spam hits will appear here.", style="Body.TLabel").pack(anchor="w", pady=(4, 14))
@@ -261,23 +256,28 @@ class SpamSnifferApp:
         right = ttk.Frame(self.header_tab, padding=16, style="Panel.TFrame")
         right.grid(row=0, column=1, sticky="nsew")
 
-        ttk.Label(left, text="Raw Header Review", style="SectionTitle.TLabel").pack(anchor="w")
-        ttk.Label(left, text="Paste full email headers to check legitimacy signals such as SPF, DKIM, and DMARC.", style="Body.TLabel").pack(anchor="w", pady=(4, 14))
-        self.header_input = self._build_text_widget(left, height=26)
-        self.header_input.pack(fill="both", expand=True)
-        ttk.Button(left, text="Inspect Headers", command=self.inspect_headers, style="Primary.TButton").pack(anchor="w", pady=(14, 0))
+        left.columnconfigure(0, weight=1)
+        left.rowconfigure(2, weight=1)
+        right.columnconfigure(0, weight=1)
+        right.rowconfigure(2, weight=1)
 
-        ttk.Label(right, text="Header Findings", style="SectionTitle.TLabel").pack(anchor="w")
-        ttk.Label(right, text="Risk notes and classifier output are summarized here.", style="Body.TLabel").pack(anchor="w", pady=(4, 14))
+        ttk.Label(left, text="Raw Header Review", style="SectionTitle.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(left, text="Paste full email headers to check legitimacy signals such as SPF, DKIM, and DMARC.", style="Body.TLabel").grid(row=1, column=0, sticky="w", pady=(4, 14))
+        self.header_input = self._build_text_widget(left, height=26)
+        self.header_input.grid(row=2, column=0, sticky="nsew")
+        self._make_button(left, "Inspect Headers", self.inspect_headers, primary=True).grid(row=3, column=0, sticky="w", pady=(14, 0))
+
+        ttk.Label(right, text="Header Findings", style="SectionTitle.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(right, text="Risk notes and classifier output are summarized here.", style="Body.TLabel").grid(row=1, column=0, sticky="w", pady=(4, 14))
         self.header_result = self._build_text_widget(right, height=28, readonly=True)
-        self.header_result.pack(fill="both", expand=True)
+        self.header_result.grid(row=2, column=0, sticky="nsew")
 
     def _build_logs_tab(self) -> None:
         top = ttk.Frame(self.logs_tab, style="Panel.TFrame")
         top.pack(fill="x")
         ttk.Label(top, text="Recent Scan Activity", style="SectionTitle.TLabel").pack(anchor="w")
         ttk.Label(top, text="SQLite-backed history of recent checks.", style="Body.TLabel").pack(anchor="w", pady=(4, 12))
-        ttk.Button(top, text="Refresh Logs", command=self.refresh_logs, style="Secondary.TButton").pack(anchor="w")
+        self._make_button(top, "Refresh Logs", self.refresh_logs, primary=False).pack(anchor="w")
 
         columns = ("time", "type", "name", "label", "legit", "spam", "confidence", "notes")
         self.logs_tree = ttk.Treeview(self.logs_tab, columns=columns, show="headings", height=18, style="App.Treeview")
@@ -325,6 +325,37 @@ class SpamSnifferApp:
         if readonly:
             widget.configure(state="disabled")
         return widget
+
+    def _make_button(self, parent, text: str, command, primary: bool = True) -> tk.Button:
+        if primary:
+            return tk.Button(
+                parent,
+                text=text,
+                command=command,
+                bg="#d7dee7",
+                fg="#000000",
+                activebackground="#c6d0db",
+                activeforeground="#000000",
+                relief="solid",
+                bd=1,
+                padx=16,
+                pady=8,
+                font=("Segoe UI", 10, "bold"),
+            )
+        return tk.Button(
+            parent,
+            text=text,
+            command=command,
+            bg="#f2f4f7",
+            fg="#000000",
+            activebackground="#e3e8ee",
+            activeforeground="#000000",
+            relief="solid",
+            bd=1,
+            padx=14,
+            pady=8,
+            font=("Segoe UI", 10),
+        )
 
     def _set_text_widget(self, widget: tk.Text, content: str) -> None:
         widget.configure(state="normal")
