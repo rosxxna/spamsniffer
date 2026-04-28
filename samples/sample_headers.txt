@@ -1,0 +1,7 @@
+From: "Bank Security" <alerts@bank-safe-check.com>
+Reply-To: claims@fastbonus-now.net
+Return-Path: <mailer@unknownroute.net>
+Received-SPF: fail
+Authentication-Results: dkim=fail dmarc=fail
+X-Priority: 1
+Subject: Urgent verification needed
